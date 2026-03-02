@@ -8,8 +8,6 @@ const PropertyContext = createContext();
 const DEFAULT_DOMAIN = "www.houseforrentinfaridabad.com";
 
 export const PropertyProvider = ({ children }) => {
-
-  // ✅ FIXED DOMAIN
   const [domain] = useState(DEFAULT_DOMAIN);
 
   const [properties, setProperties] = useState([]);
@@ -20,7 +18,6 @@ export const PropertyProvider = ({ children }) => {
 
   // ================= MAIN DOMAIN PROPERTIES =================
   const getPropertiesByDomain = async () => {
-
     if (lastFetchedDomain.current === domain && properties.length > 0) {
       return;
     }
@@ -34,7 +31,7 @@ export const PropertyProvider = ({ children }) => {
       const res = await axios.get(
         `https://deal-acres-backend.onrender.com/api/listed-properties/getPropertiesByDomain/${domain}`
       );
-console.log("API Response:", res.data);
+
       setProperties(res.data?.data || []);
     } catch (err) {
       lastFetchedDomain.current = null;
@@ -48,9 +45,27 @@ console.log("API Response:", res.data);
     getPropertiesByDomain();
   }, []);
 
+  // ================= BHK TYPE FILTER =================
+  const fetchPropertiesByType = async (type) => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const res = await axios.get(
+        `https://deal-acres-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}`
+      );
+
+      setProperties(res.data?.data || []);
+    } catch (err) {
+      setError("Type filter failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // ================= LOCALITY BASED =================
   const [data, setData] = useState(null);
-  const [loading2, setLoading2] = useState(true);
+  const [loading2, setLoading2] = useState(false);
   const [error2, setError2] = useState(null);
   const [locality, setLocality] = useState(null);
 
@@ -89,6 +104,9 @@ console.log("API Response:", res.data);
         error,
         refetch: getPropertiesByDomain,
 
+        // ✅ NEW BHK FILTER FUNCTION
+        fetchPropertiesByType,
+
         // locality based
         data,
         loading2,
@@ -102,7 +120,6 @@ console.log("API Response:", res.data);
   );
 };
 
-// ================= SAFE HOOK =================
 export const useProperty = () => {
   const context = useContext(PropertyContext);
 

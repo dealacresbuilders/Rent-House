@@ -202,11 +202,11 @@ export default function Footer() {
         {/* BOTTOM */}
         <div className="border-t border-[#6DE1D2]/30 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500 text-center md:text-left">
-            © {new Date().getFullYear()} PlotForSaleInFaridabad.com
+            © {new Date().getFullYear()} PlotForSaleInFaridabad.com - All rights reserved.
           </p>
 
           <p className="text-sm text-gray-500">
-            Designed By{" "}
+            Designed By-{" "}
             <Link
               href="https://www.parcharmanch.com/"
               target="_blank"

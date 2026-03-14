@@ -167,7 +167,7 @@ export default function Properties() {
                   </div>
 
                   <p className="text-sm text-gray-600 mt-4 line-clamp-2 leading-relaxed">
-                    {property.description ||
+                    {property.description2 ||
                       "Premium investment opportunity offering strong appreciation potential."}
                   </p>
 

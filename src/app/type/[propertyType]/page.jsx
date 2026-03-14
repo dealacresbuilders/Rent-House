@@ -166,7 +166,7 @@ export default function PropertyTypePage() {
                   </div>
 
                   <p className="text-sm text-gray-500 mt-4 line-clamp-2 leading-relaxed">
-                    {property.description ||
+                    {property.description2 ||
                       "High-value residential asset offering strong long-term growth."}
                   </p>
 

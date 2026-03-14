@@ -1,12 +1,10 @@
 "use client";
 
 export default function Pagination({
-  totalItems,
-  itemsPerPage,
   currentPage,
+  totalPages,
   onPageChange,
 }) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   if (totalPages <= 1) return null;
 
@@ -50,6 +48,7 @@ export default function Pagination({
           >
             1
           </button>
+
           {visiblePages[0] > 2 && (
             <span className="px-2 text-gray-400">...</span>
           )}
@@ -78,6 +77,7 @@ export default function Pagination({
           {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
             <span className="px-2 text-gray-400">...</span>
           )}
+
           <button
             onClick={() => onPageChange(totalPages)}
             className="px-4 py-2 rounded-xl border border-[#6DE1D2]

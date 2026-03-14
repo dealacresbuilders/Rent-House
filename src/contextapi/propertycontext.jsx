@@ -8,15 +8,16 @@ const PropertyContext = createContext();
 const DEFAULT_DOMAIN = "www.houseforrentinfaridabad.com";
 
 export const PropertyProvider = ({ children }) => {
+
   const [domain] = useState(DEFAULT_DOMAIN);
 
+  // ================= MAIN DOMAIN PROPERTIES =================
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const lastFetchedDomain = useRef(null);
 
-  // ================= MAIN DOMAIN PROPERTIES =================
   const getPropertiesByDomain = async () => {
     if (lastFetchedDomain.current === domain && properties.length > 0) {
       return;
@@ -45,25 +46,41 @@ export const PropertyProvider = ({ children }) => {
     getPropertiesByDomain();
   }, []);
 
-  // ================= BHK TYPE FILTER =================
-  const fetchPropertiesByType = async (type) => {
+  // ================= BHK TYPE FILTER WITH PAGINATION =================
+
+  const [loading3, setLoading3] = useState(false);
+  const [error3, setError3] = useState(null);
+
+  const [page, setPage] = useState(1);
+  const [limit] = useState(100);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [currentType, setCurrentType] = useState(null);
+
+  const fetchPropertiesByType = async (type, pageNumber = 1) => {
     try {
-      setLoading(true);
-      setError(null);
+      setLoading3(true);
+      setError3(null);
+
+      setCurrentType(type);
 
       const res = await axios.get(
-        `https://deal-acres-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}`
+        `https://deal-acres-backend.onrender.com/api/listed-properties/getPropertiesByType/${type}/${domain}?page=${pageNumber}&limit=${limit}`
       );
 
       setProperties(res.data?.data || []);
+      setTotalPages(res.data?.totalPages || 1);
+      setPage(pageNumber);
+
     } catch (err) {
-      setError("Type filter failed");
+      setError3("Type filter failed");
     } finally {
-      setLoading(false);
+      setLoading3(false);
     }
   };
 
   // ================= LOCALITY BASED =================
+
   const [data, setData] = useState(null);
   const [loading2, setLoading2] = useState(false);
   const [error2, setError2] = useState(null);
@@ -96,6 +113,7 @@ export const PropertyProvider = ({ children }) => {
   }, [locality]);
 
   // ================= PROVIDER =================
+
   return (
     <PropertyContext.Provider
       value={{
@@ -104,10 +122,16 @@ export const PropertyProvider = ({ children }) => {
         error,
         refetch: getPropertiesByDomain,
 
-        // ✅ NEW BHK FILTER FUNCTION
+        // BHK FILTER
         fetchPropertiesByType,
+        loading3,
+        error3,
+        page,
+        totalPages,
+        setPage,
+        currentType,
 
-        // locality based
+        // LOCALITY
         data,
         loading2,
         error2,

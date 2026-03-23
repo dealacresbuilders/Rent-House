@@ -1,27 +1,21 @@
 import React from "react";
-import { headers } from "next/headers";
 import BlogList from "./BlogList";
 
 export async function generateMetadata() {
-  const h = headers();
-  const domain = h.get("host") || "localhost";
-
-  const cleanDomain = domain.replace(/^www\./, "");
-
   return {
-    title: "Rental Blogs & Tenant Guides | Rent House in Faridabad",
+    title: "Rent House Blogs | Tenant Guide, Rental Tips & Agreement Advice",
     description:
-      "Read the latest rental blogs, tenant guides, rent agreement tips, and sector-wise rental insights in Faridabad. Find expert advice before renting a house.",
+      "Explore rent house blogs with expert tenant guides, rental tips, agreement advice and location insights. Learn how to find and rent the perfect home بسهولة.",
     keywords: [
-      "rent house in faridabad",
-      "faridabad rental blogs",
-      "tenant guide faridabad",
-      "rent agreement guide",
-      "house rent tips",
-      "best sectors in faridabad for rent"
+      "rent house",
+      "house for rent",
+      "tenant guide",
+      "rent agreement tips",
+      "home rental advice",
+      "rental property blogs"
     ],
     alternates: {
-      canonical: `https://${cleanDomain}/blog`,
+      canonical: "www.houseforrentinfaridabad.com/blog", // 🔥 apna real domain yaha replace karna
     },
   };
 }

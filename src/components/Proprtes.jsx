@@ -174,40 +174,40 @@ export default function Properties() {
                   <div className="flex-1" />
 
                   {/* PRICE + BUTTONS */}
-                  <div className="flex flex-col md:flex-row justify-between items-center mt-5 gap-4">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-5 gap-3 md:gap-4">
 
-                    <p className="text-2xl font-bold text-[#6DE1D2]">
-                      ₹ {property.price?.toLocaleString("en-IN")}
-                    </p>
+  <p className="text-xl sm:text-2xl font-bold text-[#6DE1D2]">
+    ₹ {property.price?.toLocaleString("en-IN")}
+  </p>
 
-                    <div className="flex gap-3 w-full md:w-auto">
+  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
 
-                      <button
-                        onClick={() => {
-                          setSelectedProperty(property.title);
-                          setOpen(true);
-                        }}
-                        className="bg-[#6DE1D2]
-                        text-white px-6 py-2 rounded-full
-                        hover:opacity-90
-                        transition w-full md:w-auto font-semibold shadow-md"
-                      >
-                        Contact Now
-                      </button>
+    <button
+      onClick={() => {
+        setSelectedProperty(property.title);
+        setOpen(true);
+      }}
+      className="bg-[#6DE1D2]
+      text-white px-4 sm:px-6 py-2 rounded-full
+      hover:opacity-90
+      transition w-full md:w-auto text-center font-semibold shadow-md text-sm"
+    >
+      Contact Now
+    </button>
 
-                      <Link
-                        href={`/properties/${property.slug}`}
-                        className="border border-[#6DE1D2] text-[#6DE1D2]
-                        px-6 py-2 rounded-full
-                        hover:bg-[#E6FBF8]
-                        transition w-full md:w-auto text-center font-semibold"
-                      >
-                        View Details
-                      </Link>
+    <Link
+      href={`/properties/${property.slug}`}
+      className="border border-[#6DE1D2] text-[#6DE1D2]
+      px-4 sm:px-6 py-2 rounded-full
+      hover:bg-[#E6FBF8]
+      transition w-full md:w-auto text-center font-semibold text-sm"
+    >
+      View Details
+    </Link>
 
-                    </div>
+  </div>
 
-                  </div>
+</div>
 
                 </div>
               </div>

@@ -85,7 +85,7 @@ export default function PropertyTypePage() {
   }
 
   return (
-    <section ref={propertySectionRef} className="bg-[#f0fffd] px-4 py-16">
+    <section ref={propertySectionRef} className="bg-[#f0fffd] px-4 py-8">
 
       {/* ===== HEADER ===== */}
 
@@ -120,30 +120,48 @@ export default function PropertyTypePage() {
 
             <div
               key={property._id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden"
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
             >
 
-              <div className="flex flex-col md:flex-row">
+              <div className="flex flex-col md:flex-row full">
 
-                <div className="relative md:w-[35%]">
+                <div className="relative md:w-[45%] h-[250px]">
                   <Image
                     src={property?.media?.url || "/no-image.png"}
                     alt={property.title}
                     width={600}
                     height={400}
-                    className="w-full h-52 md:h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
-                <div className="p-5 flex-1 flex flex-col">
+                <div className="p-6 flex flex-col w-full min-w-0">
+  
+  <h2 className="text-lg font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
+    {property.title}
+  </h2>
 
-                  <h2 className="text-lg font-semibold text-gray-900">
-                    {property.title}
-                  </h2>
+                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 21s-6-5.33-6-10a6 6 0 1112 0c0 4.67-6 10-6 10z"
+                      />
+                      <circle cx="12" cy="11" r="2.5" />
+                    </svg>
 
-                  <p className="text-sm text-gray-500 mt-1">
                     {property.locality}
                   </p>
+
+
 
                   <div className="mt-4 bg-gray-50 border border-gray-200 rounded-xl px-5 py-3 flex flex-wrap md:flex-nowrap items-center justify-between gap-3 text-sm">
 
@@ -183,14 +201,14 @@ export default function PropertyTypePage() {
 
                   </div>
 
-                  <p className="text-sm text-gray-500 mt-4 line-clamp-2 leading-relaxed">
+                  {/* <p className="text-sm text-gray-500 mt-4 line-clamp-2 leading-relaxed">
                     {property.description2 ||
                       "High-value residential asset offering strong long-term growth."}
-                  </p>
+                  </p> */}
 
                   <div className="flex-1" />
 
-                  <div className="flex flex-col md:flex-row justify-between items-center mt-5 gap-4">
+                  <div className="flex flex-col md:flex-row justify-between  mt-5 gap-4">
 
                     <p className="text-2xl font-bold text-[#6DE1D2]">
                       ₹ {property.price?.toLocaleString("en-IN")}

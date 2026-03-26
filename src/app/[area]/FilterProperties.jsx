@@ -105,7 +105,7 @@ export default function FilterProperties({ area }) {
   }
 
   return (
-    <section className="bg-white px-4 py-8">
+    <section className="bg-white py-8">
       <div className="max-w-7xl mx-auto">
 
         {/* HEADING */}
@@ -130,7 +130,7 @@ export default function FilterProperties({ area }) {
               overflow-hidden flex flex-col md:flex-row"
             >
               {/* IMAGE */}
-              <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
+              <div className="relative md:w-[35%] aspect-[4/3] md:aspect-auto">
                 {property?.media?.url ? (
                   <Image
                     src={property.media.url}
@@ -186,40 +186,52 @@ export default function FilterProperties({ area }) {
 
                 </div>
 
-                <p className="text-sm text-gray-600 mt-3 line-clamp-2">
+                {/* <p className="text-sm text-gray-600 mt-3 line-clamp-2">
                   {property.description2 ||
                     "Comfortable rental home with excellent connectivity and nearby amenities."}
-                </p>
+                </p> */}
 
                 <div className="flex-1" />
 
                 {/* PRICE + BUTTON */}
                 <div className="mt-4 flex justify-between items-center">
 
-                  {property.price && property.price > 0 ? (
-                    <p className="text-lg font-bold text-[#6DE1D2]">
-                      ₹ {property.price.toLocaleString("en-IN")} /month
-                    </p>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setSelectedProperty(property.title);
-                        setOpen(true);
-                      }}
-                      className="bg-[#6DE1D2] text-white px-4 py-1.5 rounded-full text-xs hover:opacity-90 transition"
-                    >
-                      Get Details
-                    </button>
-                  )}
+  {/* PRICE */}
+  {property.price && property.price > 0 ? (
+    <p className="text-lg font-bold text-[#6DE1D2]">
+      ₹ {property.price.toLocaleString("en-IN")}
+    </p>
+  ) : (
+    <p className="text-sm font-medium text-gray-500">
+      Price on Request
+    </p>
+  )}
 
-                  <Link
-                    href={`/properties/${property.slug}`}
-                    className="text-[#6DE1D2] text-sm font-medium hover:underline"
-                  >
-                    View Details →
-                  </Link>
+  {/* RIGHT SIDE BUTTONS */}
+  <div className="flex items-center gap-3">
 
-                </div>
+    {/* CONTACT BUTTON */}
+    <button
+      onClick={() => {
+        setSelectedProperty(property.title);
+        setOpen(true);
+      }}
+      className="bg-[#6DE1D2] text-white px-4 py-1.5 rounded-full text-xs font-semibold hover:opacity-90 transition"
+    >
+      Contact Now
+    </button>
+
+    {/* VIEW DETAILS */}
+    <Link
+      href={`/properties/${property.slug}`}
+      className="text-[#6DE1D2] text-sm font-medium hover:underline"
+    >
+      View  Details →
+    </Link>
+
+  </div>
+
+</div>
 
               </div>
             </div>

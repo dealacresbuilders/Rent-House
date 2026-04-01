@@ -81,10 +81,10 @@ export default function PropertyCard({ property }) {
           </div>
         </div>
 
-        <p className="text-sm text-gray-600 mt-3 line-clamp-2">
+        {/* <p className="text-sm text-gray-600 mt-3 line-clamp-2">
           {property.description2 ||
             "Comfortable rental home located in a prime sector of Faridabad with excellent connectivity and amenities nearby."}
-        </p>
+        </p> */}
 
         <div className="flex-1" />
 

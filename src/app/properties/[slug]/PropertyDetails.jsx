@@ -28,7 +28,7 @@ export default function PropertyDetails({ propertyy }) {
               p._id !== propertyy._id &&
               p.city?.toLowerCase() === propertyy.city?.toLowerCase()
           )
-          .slice(0, 4)
+          .slice(0, 30)
       : [];
 
   return (

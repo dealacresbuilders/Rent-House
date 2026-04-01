@@ -89,34 +89,40 @@ export default function ContactPopup({ isOpen, onClose, propertyTitle }) {
         <form onSubmit={handleSubmit} className="space-y-4">
 
           <input
-            name="name"
-            required
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-[#6DE1D2] rounded-lg 
-            focus:ring-2 focus:ring-[#6DE1D2] outline-none transition"
-          />
+  name="name"
+  required
+  placeholder="Full Name"
+  value={formData.name}
+  onChange={handleChange}
+  className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+  text-gray-800 placeholder-gray-400 bg-white
+  focus:border-[#6DE1D2] focus:ring-2 focus:ring-[#6DE1D2]/40 
+  outline-none transition"
+/>
 
-          <input
-            name="phone"
-            required
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-[#6DE1D2] rounded-lg 
-            focus:ring-2 focus:ring-[#6DE1D2] outline-none transition"
-          />
+<input
+  name="phone"
+  required
+  placeholder="Phone Number"
+  value={formData.phone}
+  onChange={handleChange}
+  className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+  text-gray-800 placeholder-gray-400 bg-white
+  focus:border-[#6DE1D2] focus:ring-2 focus:ring-[#6DE1D2]/40 
+  outline-none transition"
+/>
 
-          <textarea
-            name="message"
-            rows="3"
-            placeholder="Budget / Sector / BHK Requirement"
-            value={formData.message}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-[#6DE1D2] rounded-lg 
-            focus:ring-2 focus:ring-[#6DE1D2] outline-none resize-none transition"
-          />
+<textarea
+  name="message"
+  rows="3"
+  placeholder="Budget / Sector / BHK Requirement"
+  value={formData.message}
+  onChange={handleChange}
+  className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+  text-gray-800 placeholder-gray-400 bg-white
+  focus:border-[#6DE1D2] focus:ring-2 focus:ring-[#6DE1D2]/40 
+  outline-none resize-none transition"
+/>
 
           <button
             type="submit"

@@ -83,8 +83,8 @@ export default function Properties() {
 
         <div className="w-20 h-1 bg-[#6DE1D2] mt-6 rounded-full"></div>
         <div className="mt-8">
-    <BHKFilterButtons />
-  </div>
+          <BHKFilterButtons />
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -97,18 +97,18 @@ export default function Properties() {
               key={property._id}
               className="bg-white rounded-2xl border border-[#6DE1D2]/30
               shadow-sm hover:shadow-xl hover:-translate-y-1
-              transition duration-300 overflow-hidden"
+              transition duration-300 overflow-hidden md:h-[250px]"
             >
-              <div className="flex flex-col md:flex-row">
+              <div className="flex flex-col md:flex-row h-full">
 
                 {/* IMAGE */}
-                <div className="relative md:w-[35%]">
+                <div className="relative md:w-[45%] h-[250px]">
                   <Image
                     src={property?.media?.url || "/no-image.png"}
                     alt={property.title}
                     width={600}
                     height={400}
-                    className="w-full h-52 md:h-full object-cover"
+                    className="w-full h-full object-cover"
                   />
                   <span className="absolute top-4 left-4
                   bg-[#6DE1D2]
@@ -118,15 +118,33 @@ export default function Properties() {
                 </div>
 
                 {/* CONTENT */}
-                <div className="p-5 flex-1 flex flex-col">
+                <div className="p-6 flex flex-col w-full min-w-0">
 
-                  <h2 className="text-lg font-semibold text-gray-900">
+                  <h2 className="text-lg font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
                     {property.title}
                   </h2>
 
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 text-gray-400"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 21s-6-5.33-6-10a6 6 0 1112 0c0 4.67-6 10-6 10z"
+                      />
+                      <circle cx="12" cy="11" r="2.5" />
+                    </svg>
+
                     {property.locality}
                   </p>
+
+
 
                   {/* STATS BAR */}
                   <div className="mt-4 bg-[#E6FBF8] border border-[#6DE1D2]/40
@@ -166,48 +184,48 @@ export default function Properties() {
 
                   </div>
 
-                  <p className="text-sm text-gray-600 mt-4 line-clamp-2 leading-relaxed">
+                  {/* <p className="text-sm text-gray-600 mt-4 line-clamp-2 leading-relaxed">
                     {property.description2 ||
                       "Premium investment opportunity offering strong appreciation potential."}
-                  </p>
+                  </p> */}
 
                   <div className="flex-1" />
 
                   {/* PRICE + BUTTONS */}
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-5 gap-3 md:gap-4">
 
-  <p className="text-xl sm:text-2xl font-bold text-[#6DE1D2]">
-    ₹ {property.price?.toLocaleString("en-IN")}
-  </p>
+                    <p className="text-xl sm:text-2xl font-bold text-[#6DE1D2]">
+                      ₹ {property.price?.toLocaleString("en-IN")}
+                    </p>
 
-  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
 
-    <button
-      onClick={() => {
-        setSelectedProperty(property.title);
-        setOpen(true);
-      }}
-      className="bg-[#6DE1D2]
+                      <button
+                        onClick={() => {
+                          setSelectedProperty(property.title);
+                          setOpen(true);
+                        }}
+                        className="bg-[#6DE1D2]
       text-white px-4 sm:px-6 py-2 rounded-full
       hover:opacity-90
       transition w-full md:w-auto text-center font-semibold shadow-md text-sm"
-    >
-      Contact Now
-    </button>
+                      >
+                        Contact Now
+                      </button>
 
-    <Link
-      href={`/properties/${property.slug}`}
-      className="border border-[#6DE1D2] text-[#6DE1D2]
+                      <Link
+                        href={`/properties/${property.slug}`}
+                        className="border border-[#6DE1D2] text-[#6DE1D2]
       px-4 sm:px-6 py-2 rounded-full
       hover:bg-[#E6FBF8]
       transition w-full md:w-auto text-center font-semibold text-sm"
-    >
-      View Details
-    </Link>
+                      >
+                        View Details
+                      </Link>
 
-  </div>
+                    </div>
 
-</div>
+                  </div>
 
                 </div>
               </div>
@@ -220,15 +238,15 @@ export default function Properties() {
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               onPageChange={(page) => {
-  setCurrentPage(page);
+                setCurrentPage(page);
 
-  setTimeout(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, 100);
-}}
+                setTimeout(() => {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  });
+                }, 100);
+              }}
             />
           </div>
 

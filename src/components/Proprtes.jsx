@@ -66,7 +66,7 @@ export default function Properties() {
   const currentProperties = properties.slice(startIndex, endIndex);
 
   return (
-    <section
+    <section id="locations"
       ref={propertySectionRef}
       className="bg-gradient-to-b from-white to-[#E6FBF8] px-4 py-16"
     >

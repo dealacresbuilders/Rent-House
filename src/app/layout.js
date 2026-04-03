@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Shop for Sale Faridabad",
-  description: "Find verified shops for sale in Faridabad with best deals.",
+  title: "Rent House in Faridabad",
+  description: "Find verified houses for rent in Faridabad with best deals.",
 };
 
 export default function RootLayout({ children }) {

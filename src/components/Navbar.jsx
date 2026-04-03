@@ -32,7 +32,7 @@ const Navbar = () => {
   }}
               className="text-xl sm:text-2xl font-bold tracking-wide text-[#6DE1D2] hover:opacity-80 transition"
             >
-              Rent House in Faridabad
+              DA
             </Link>
 
             {/* ================= DESKTOP LINKS ================= */}

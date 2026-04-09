@@ -61,7 +61,7 @@ export async function generateSitemap() {
   const allUrls = [
     staticUrls,
     ...locationUrls,
-    ...propertiesUrls,
+    // ...propertiesUrls,
   ].join("\n");
 
   // 🔹 XML Output

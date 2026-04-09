@@ -90,7 +90,7 @@ const HeroSection = () => {
               Explore verified rental homes that match your budget and 
               lifestyle needs.
             </p>
-            <Link href="/rent-house-in-faridabad">
+            <Link href="/how-it-works">
   <button className="relative overflow-hidden bg-[#6DE1D2] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:bg-[#6DE1D2] hover:shadow-xl hover:scale-105 mt-4 cursor-pointer">
     
     <span className="relative z-10">Learn More</span>

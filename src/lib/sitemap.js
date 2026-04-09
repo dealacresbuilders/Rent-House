@@ -21,10 +21,10 @@ export async function generateSitemap() {
     <url><loc>${baseUrl}/contact</loc></url>
     <url><loc>${baseUrl}/blog</loc></url>
     <url><loc>${baseUrl}/how-it-works</loc></url>
-    <url><loc>${baseUrl}/listing/1-bhk-house-for-rent</loc></url>
-    <url><loc>${baseUrl}/listing/2-bhk-house-for-rent</loc></url>
-    <url><loc>${baseUrl}/listing/3-bhk-house-for-rent</loc></url>
-    <url><loc>${baseUrl}/listing/4-bhk-house-for-rent</loc></url>
+    <url><loc>${baseUrl}/listing/1-bhk-house-for-rent-faridabad</loc></url>
+    <url><loc>${baseUrl}/listing/2-bhk-house-for-rent-faridabad</loc></url>
+    <url><loc>${baseUrl}/listing/3-bhk-house-for-rent-faridabad</loc></url>
+    <url><loc>${baseUrl}/listing/4-bhk-house-for-rent-faridabad</loc></url>
 
   `;
 
@@ -52,7 +52,7 @@ export async function generateSitemap() {
 
     return `
       <url>
-        <loc>${baseUrl}/house-for-rent-in-${slug}</loc>
+        <loc>${baseUrl}/house-for-rent-in-${slug}-faridabad</loc>
       </url>
     `;
   });

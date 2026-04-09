@@ -38,7 +38,7 @@ export default function Footer() {
               <div key={index} className="relative group">
 
                 <Link
-                  href={`/house-for-rent-in-${createSlug(loc)}`}
+                  href={`/house-for-rent-in-${createSlug(loc)}-faridabad`}
                   className="block truncate text-gray-600 hover:text-[#6DE1D2] transition duration-300"
                 >
                   House for Rent in  {loc}

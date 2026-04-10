@@ -7,7 +7,7 @@ export default function AboutPage() {
     <section className="bg-gradient-to-b from-white to-[#E6FBF8] px-4 py-20">
       <div className="max-w-6xl mx-auto">
 
-        {/* ================= SECTION 1 : PAGE HEADING ================= */}
+     
         <div className="text-center mb-20">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
             About <span className="text-[#6DE1D2]">Rent House in Faridabad</span>
@@ -20,7 +20,7 @@ export default function AboutPage() {
         </div>
 
 
-        {/* ================= SECTION 2 : OUR MISSION ================= */}
+        
         <div className="mb-24">
           <h2 className="text-3xl font-bold text-gray-900 mb-8">
             Our Mission
@@ -43,7 +43,6 @@ export default function AboutPage() {
         </div>
 
 
-        {/* ================= SECTION 3 : STATS BOX ================= */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
 
           <div className="bg-white border border-[#6DE1D2]/40 rounded-3xl p-10 text-center shadow-sm">

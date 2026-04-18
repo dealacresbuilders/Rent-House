@@ -134,6 +134,7 @@ export default function FilterProperties({ area }) {
                 {property?.media?.url ? (
                   <Image
                     src={property.media.url}
+                    unoptimized
                     alt={property.title}
                     fill
                     className="object-cover"

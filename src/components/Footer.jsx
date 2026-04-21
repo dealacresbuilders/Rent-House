@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Link from "next/link";
 
 import { locations } from "../data/locations";
@@ -22,6 +22,10 @@ export default function Footer() {
     ? locations
     : locations.slice(0, initialCount);
 
+
+    useEffect(() => {
+  localStorage.setItem("lastLocation", "Faridabad");
+}, []);
   return (
     <footer className="bg-gradient-to-b from-[#E6FBF8] to-white pt-16 pb-8 px-4 border-t border-[#6DE1D2]/40">
       <div className="max-w-7xl mx-auto">

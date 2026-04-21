@@ -2,35 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function Breadcrumb({ property }) {
   const pathname = usePathname();
-
-  const [lastLocation, setLastLocation] = useState("");
-  const [lastListing, setLastListing] = useState("");
 
   const pathParts = pathname.split("/").filter(Boolean);
 
   const formatTitle = (text = "") =>
     text.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-
-  // ================= STORAGE =================
-  useEffect(() => {
-    if (pathname === "/") {
-      localStorage.removeItem("lastLocation");
-      localStorage.removeItem("lastListing");
-      setLastLocation("");
-      setLastListing("");
-      return;
-    }
-
-    const storedLocation = localStorage.getItem("lastLocation") || "";
-    const storedListing = localStorage.getItem("lastListing") || "";
-
-    setLastLocation(storedLocation);
-    setLastListing(storedListing);
-  }, [pathname]);
 
   const baseClass = "text-gray-700 hover:underline";
 
@@ -61,19 +40,7 @@ export default function Breadcrumb({ property }) {
 
   // ================= PROPERTY =================
   if (property) {
-    const city = property?.city || lastLocation || "";
-
-    let listingName = "";
-    let listingLink = "";
-
-    if (lastListing && city) {
-      const slug = lastListing.split("/").pop();
-
-      if (slug && slug.includes(city.toLowerCase())) {
-        listingName = formatTitle(slug);
-        listingLink = lastListing;
-      }
-    }
+    const city = property?.city || "";
 
     return (
       <div className="text-xs flex gap-2 flex-wrap text-gray-700">
@@ -84,16 +51,7 @@ export default function Breadcrumb({ property }) {
           <>
             <span>›</span>
             <Link href={`/${city.toLowerCase()}`} className={baseClass}>
-              {city}
-            </Link>
-          </>
-        )}
-
-        {listingName && (
-          <>
-            <span>›</span>
-            <Link href={listingLink} className={baseClass}>
-              {listingName}
+              {formatTitle(city)}
             </Link>
           </>
         )}
@@ -102,6 +60,7 @@ export default function Breadcrumb({ property }) {
         <span className="font-semibold">
           {property?.title || "Property"}
         </span>
+
       </div>
     );
   }
@@ -127,9 +86,9 @@ export default function Breadcrumb({ property }) {
       {city && (
         <>
           <span>›</span>
-          <Link href={`/${city}`} className="text-gray-700 hover:underline">
-  {formatTitle(city)}
-</Link>
+          <Link href={`/${city}`} className={baseClass}>
+            {formatTitle(city)}
+          </Link>
         </>
       )}
 
@@ -141,6 +100,7 @@ export default function Breadcrumb({ property }) {
           </span>
         </>
       )}
+
     </div>
   );
 }

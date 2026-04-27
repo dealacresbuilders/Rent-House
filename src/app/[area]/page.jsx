@@ -1,6 +1,39 @@
 import FilterProperties from "./FilterProperties";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Breadcrumb from "@/components/Breadcrumb";
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const rawArea = resolvedParams?.area;
+
+  const area = rawArea?.replace("house-for-rent-in-", "");
+
+  const formattedArea = area
+    ?.replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+  const locationName = formattedArea || "Faridabad";
+
+  return {
+    title: `Houses for Rent in ${locationName} | Rent Independent House & Villas`,
+
+    description: `Find houses for rent in ${locationName}. Explore independent houses, villas, and rental homes including 1BHK, 2BHK, and 3BHK options with modern amenities and great connectivity in ${locationName}.`,
+
+    keywords: [
+      `houses for rent in ${locationName}`,
+      `rent house ${locationName}`,
+      `independent house rent ${locationName}`,
+      `villa for rent ${locationName}`,
+      `1BHK house rent ${locationName}`,
+      `2BHK house rent ${locationName}`,
+      `3BHK house rent ${locationName}`,
+      `${locationName} rental homes`,
+    ],
+
+    alternates: {
+      canonical: `https://www.renthouseinfaridabad.com/${rawArea}`,
+    },
+  };
+}
 export default async function Page({ params }) {
   const resolvedParams = await params;
    const rawArea = resolvedParams?.area;

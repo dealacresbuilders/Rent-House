@@ -3,19 +3,14 @@ import BlogList from "./BlogList";
 
 export async function generateMetadata() {
   return {
-    title: "Rent House Blogs | Tenant Guide, Rental Tips & Agreement Advice",
+    title: "House Rental Blog | Renting Tips, Tenant Guide & Property News in Faridabad",
     description:
-      "Explore rent house blogs with expert tenant guides, rental tips, agreement advice and location insights. Learn how to find and rent the perfect home بسهولة.",
+      "Read expert blogs on house renting tips in Faridabad, rental market trends, tenant rights, rent agreement guide, best localities to rent a house & property news to help you make the smartest rental decision in Faridabad.",
     keywords: [
-      "rent house",
-      "house for rent",
-      "tenant guide",
-      "rent agreement tips",
-      "home rental advice",
-      "rental property blogs"
+      "house rental blog Faridabad", "renting tips Faridabad", "rental market trends Faridabad", "tenant rights India", "rent agreement guide Faridabad", "best localities to rent house Faridabad", "real estate news Faridabad", "affordable rental homes Faridabad", "house rent price trends Faridabad", "independent house rental checklist Faridabad"
     ],
     alternates: {
-      canonical: "www.houseforrentinfaridabad.com/blog", // 🔥 apna real domain yaha replace karna
+      canonical: "www.renthouseinfaridabad.com/blog", // 🔥 apna real domain yaha replace karna
     },
   };
 }

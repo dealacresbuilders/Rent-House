@@ -42,18 +42,18 @@ export async function generateMetadata({ params }) {
 
   if (!single) {
     return {
-      title: "Parcharmanch – Blog",
-      description: "Explore the latest blogs and articles on Parcharmanch.",
+      title: "Rent House In Faridabad – Blog",
+      description: "Explore the latest blogs and articles on Rent House In Faridabad.",
     };
   }
 
   return {
-    title: single?.MetaTitle || single?.Title || "Parcharmanch Blog",
+    title: single?.MetaTitle || single?.Title || "Rent House In Faridabad Blog",
     description:
       single?.MetaDescription ||
-      "Read insightful stories and blogs on Parcharmanch.",
+      "Read insightful stories and blogs on Rent House In Faridabad.",
     alternates: {
-      canonical: `https://www.parcharmanch.in/blog/${slug}`,
+      canonical: `https://www.renthouseinfaridabad.com/blog/${slug}`,
     },
   };
 }

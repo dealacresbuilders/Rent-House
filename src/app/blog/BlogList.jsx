@@ -43,10 +43,10 @@ export default function BlogList() {
 
       {/* HEADING */}
       <div className=" mb-14">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
           Rental Insights &{" "}
           <span className="text-[#6DE1D2]">Faridabad Updates</span>
-        </h2>
+        </h1>
 
         <p className="text-gray-600 mt-4 max-w-2xl ">
           Stay informed with rental tips, tenant guides, legal updates,
@@ -107,9 +107,9 @@ export default function BlogList() {
                     {post?.Category || post?.category || "General"}
                   </span>
 
-                  <h3 className="text-lg font-semibold text-gray-900 leading-snug mb-3 group-hover:text-[#6DE1D2] transition">
+                  <h2 className="text-lg font-semibold text-gray-900 leading-snug mb-3 group-hover:text-[#6DE1D2] transition">
                     {post?.Title || post?.title || "No Title"}
-                  </h3>
+                  </h2>
 
                   <p className="text-sm text-gray-500">
                     {formatDate(post?.Date || post?.date)}
@@ -138,9 +138,9 @@ export default function BlogList() {
       {!loading && !error && Array.isArray(blogs) && blogs.length === 0 && (
         <div className="flex flex-col items-center justify-center text-center py-20">
 
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
             Blogs Coming Soon 🚀
-          </h3>
+          </h2>
 
           <p className="text-gray-500 mt-3 max-w-md">
             We are working on some amazing investment insights.

@@ -70,7 +70,7 @@ const HeroSection = () => {
 
         {/* LEFT CONTENT */}
         <div className="md:col-span-7 lg:col-span-8">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 leading-tight">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-gray-900 leading-tight">
             Rent House in{" "}
             <span className="text-[#6DE1D2]">Faridabad</span>
           </h1>
@@ -106,9 +106,9 @@ const HeroSection = () => {
         <div className="md:col-span-5 lg:col-span-4">
           <div className="bg-white p-8 rounded-2xl shadow-xl border border-[#6DE1D2]">
 
-            <h3 className="text-2xl font-semibold text-[#6DE1D2]">
+            <h2 className="text-2xl font-semibold text-[#6DE1D2]">
               Free Rental Consultation
-            </h3>
+            </h2>
 
             <p className="text-sm mb-6 text-gray-500">
               Fill in your details and our team will help you find the perfect rental home.

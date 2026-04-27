@@ -18,22 +18,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-title: "Rent House in Faridabad | Affordable & Luxury Rental Homes",
+title: "Rent House in Faridabad | Affordable Independent Homes & Flats on Rent",
 
 description:
-"Find verified houses for rent in Faridabad including independent houses, villas, and builder floors at affordable prices. Explore ready to move rental homes in prime locations of Faridabad.",
+"Find verified houses for rent in Faridabad. Explore affordable 2 BHK & 3 BHK independent houses, builder floors & apartments in Sector 82, 85, 86, 88, Neharpar, Sainik Colony & more. No brokerage. Book free site visit today.",
 
 keywords: [
-  "rent house faridabad",
-  "house on rent faridabad",
-  "homes for rent faridabad",
-  "independent house rent faridabad",
-  "villa on rent faridabad",
-  "builder floor rent faridabad",
-  "rental property faridabad",
-  "cheap house rent faridabad",
-  "luxury house rent faridabad",
-  "residential rent faridabad"
+ "rent house in Faridabad", "house for rent Faridabad", "home on rent Faridabad", "independent house for rent Faridabad", "2 BHK house for rent Faridabad", "3 BHK house for rent Faridabad", "furnished house for rent Faridabad", "affordable house on rent Faridabad", "no brokerage house rent Faridabad", "house rent Neharpar Faridabad", "rent house Sainik Colony Faridabad", "monthly rent house Faridabad"
 ],
 
   alternates: {

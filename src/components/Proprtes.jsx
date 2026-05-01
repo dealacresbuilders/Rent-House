@@ -9,12 +9,12 @@ import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 export default function Properties() {
-  const { properties, loading, error } = useProperty();
+  const { properties, loading, error, page2, setPage2,
+    totalItems, itemsPerPage, } = useProperty();
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
   const propertySectionRef = useRef(null);
-  const itemsPerPage = 150;
+ 
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -51,7 +51,7 @@ export default function Properties() {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold text-gray-800">
-          No Plots Available in Faridabad
+          No house Available in Faridabad
         </h2>
         <p className="text-gray-500 mt-2">
           New listings will be updated soon.
@@ -60,10 +60,7 @@ export default function Properties() {
     );
   }
 
-  const totalItems = properties.length;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentProperties = properties.slice(startIndex, endIndex);
+
 
   return (
     <section id="locations"
@@ -92,7 +89,7 @@ export default function Properties() {
         {/* LEFT SIDE */}
         <div className="lg:col-span-2 space-y-8">
 
-          {currentProperties.map((property) => (
+          {properties.map((property) => (
             <div
               key={property._id}
               className="bg-white rounded-2xl border border-[#6DE1D2]/30
@@ -248,9 +245,9 @@ export default function Properties() {
             <Pagination
               totalItems={totalItems}
               itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              onPageChange={(page) => {
-                setCurrentPage(page);
+              currentPage={page2}
+              onPageChange={(page2) => {
+                setPage2(page2);
 
                 setTimeout(() => {
                   window.scrollTo({

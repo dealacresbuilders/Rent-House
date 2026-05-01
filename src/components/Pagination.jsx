@@ -5,7 +5,6 @@ export default function Pagination({
   totalPages,
   onPageChange,
 }) {
-
   if (totalPages <= 1) return null;
 
   const maxVisible = 3;
@@ -19,17 +18,46 @@ export default function Pagination({
       start = Math.max(1, end - maxVisible + 1);
     }
 
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    return Array.from(
+      { length: end - start + 1 },
+      (_, i) => start + i
+    );
   };
 
   const visiblePages = getVisiblePages();
+
+  // 🔥 COMMON PAGE CHANGE + AUTO SCROLL
+  const handlePageChange = (page) => {
+    // ❌ Prevent invalid pages
+    if (page < 1 || page > totalPages) return;
+
+    onPageChange(page);
+
+    setTimeout(() => {
+      const section =
+        document.getElementById("locations") ||
+        document.getElementById("property-section");
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    }, 100);
+  };
 
   return (
     <div className="flex justify-center items-center gap-3 mt-14 flex-wrap">
 
       {/* PREV */}
       <button
-        onClick={() => onPageChange(currentPage - 1)}
+        onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className="px-4 py-2 rounded-xl border border-[#6DE1D2]
         text-[#6DE1D2] disabled:opacity-40
@@ -42,7 +70,7 @@ export default function Pagination({
       {visiblePages[0] > 1 && (
         <>
           <button
-            onClick={() => onPageChange(1)}
+            onClick={() => handlePageChange(1)}
             className="px-4 py-2 rounded-xl border border-[#6DE1D2]
             text-[#6DE1D2] hover:bg-[#E6FBF8] transition"
           >
@@ -59,7 +87,7 @@ export default function Pagination({
       {visiblePages.map((page) => (
         <button
           key={page}
-          onClick={() => onPageChange(page)}
+          onClick={() => handlePageChange(page)}
           className={`px-4 py-2 rounded-xl font-medium transition
             ${
               currentPage === page
@@ -74,12 +102,13 @@ export default function Pagination({
       {/* LAST PAGE */}
       {visiblePages[visiblePages.length - 1] < totalPages && (
         <>
-          {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
+          {visiblePages[visiblePages.length - 1] <
+            totalPages - 1 && (
             <span className="px-2 text-gray-400">...</span>
           )}
 
           <button
-            onClick={() => onPageChange(totalPages)}
+            onClick={() => handlePageChange(totalPages)}
             className="px-4 py-2 rounded-xl border border-[#6DE1D2]
             text-[#6DE1D2] hover:bg-[#E6FBF8] transition"
           >
@@ -90,7 +119,7 @@ export default function Pagination({
 
       {/* NEXT */}
       <button
-        onClick={() => onPageChange(currentPage + 1)}
+        onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className="px-4 py-2 rounded-xl border border-[#6DE1D2]
         text-[#6DE1D2] disabled:opacity-40
@@ -98,7 +127,6 @@ export default function Pagination({
       >
         Next
       </button>
-
     </div>
   );
 }

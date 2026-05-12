@@ -32,7 +32,7 @@ export async function generateSitemap() {
   let propertiesUrls = [];
   try {
     const res = await axios.get(
-      `https://deal-acres-backend.onrender.com/api/listed-properties/getPropertiesSlugs/www.houseforrentinfaridabad.com`
+      `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesSlugs/www.houseforrentinfaridabad.com`
     );
 
     propertiesUrls = res.data.map(

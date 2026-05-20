@@ -42,20 +42,18 @@ export default function PropertyDetails({ propertyy }) {
 
           {/* IMAGE */}
           <div className="relative w-full h-[320px] rounded-xl overflow-hidden shadow-md border border-[#6DE1D2]/40">
-            {propertyy?.media?.url ? (
+           
               <Image
-                src={propertyy.media.url}
+                src={propertyy?.media?.url ? 
+                      propertyy?.media?.url :
+                       "https://res.cloudinary.com/do84xjpmx/image/upload/v1778824618/faridabadProperties/ui9tj2tpn8vgzgyqsotg.webp"}
                 unoptimized
                 alt={propertyy?.title}
                 fill
                 priority
                 className="object-cover"
               />
-            ) : (
-              <div className="flex items-center justify-center w-full h-full bg-[#E6FBF8] text-[#6DE1D2]">
-                No Image Available
-              </div>
-            )}
+            
           </div>
 
           {/* RIGHT CONTENT */}

@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/PaginationTwo";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import Breadcrumb from "@/components/Breadcrumb";
 export default function PropertyTypePage() {
@@ -15,26 +15,45 @@ export default function PropertyTypePage() {
   const { propertyType } = useParams();
 
   const {
-    properties,
+   data2,
     loading3,
     error3,
     fetchPropertiesByType,
     page,
-    totalPages,
+    setPage,
+    totalPages,type,setType
   } = useProperty();
+  console.log("PROPERTIES BY TYPE:", page,totalPages);
 
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
 
   const propertySectionRef = useRef(null);
-  const bhk = propertyType?.split("-")[0];
+
+  /* ================= FETCH BY TYPE ================= */
+
+ const bhk = propertyType?.split("-")[0];
   useEffect(() => {
 
-    if (bhk) {
-      fetchPropertiesByType(`${bhk} BHK`, 1);
-    }
+  if (bhk) {
 
-  }, [bhk]);
+    setPage(1);
+
+    setType(`${bhk} BHK`);
+
+  }
+
+}, [bhk]);
+
+  /* ================= FORMAT AREA ================= */
+  useEffect(() => {
+  if (!loading3 &&data2.length > 0) {
+    propertySectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+}, [data2]);
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -76,7 +95,7 @@ export default function PropertyTypePage() {
     );
   }
 
-  if (!properties || properties.length === 0) {
+  if (!data2 ||data2.length === 0) {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold text-gray-800">
@@ -124,7 +143,7 @@ export default function PropertyTypePage() {
 
         <div className="lg:col-span-2 space-y-8">
 
-          {properties.map((property) => (
+          {data2.map((property) => (
 
             <div
               key={property._id}
@@ -135,7 +154,9 @@ export default function PropertyTypePage() {
 
                 <div className="relative md:w-[45%] h-[250px]">
                   <Image
-                    src={property?.media?.url || "/no-image.png"}
+                     src={property?.media?.url ? 
+                      property?.media?.url :
+                       "https://res.cloudinary.com/do84xjpmx/image/upload/v1778824618/faridabadProperties/ui9tj2tpn8vgzgyqsotg.webp"}
                     unoptimized
                     alt={property.title}
                     width={600}
@@ -259,21 +280,10 @@ export default function PropertyTypePage() {
           <div className="mt-16">
 
             <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              onPageChange={(newPage) => {
-
-                fetchPropertiesByType(`${propertyType} BHK`, newPage);
-
-                const yOffset = -90;
-
-                const y =
-                  propertySectionRef.current.getBoundingClientRect().top +
-                  window.pageYOffset +
-                  yOffset;
-
-                window.scrollTo({ top: y, behavior: "smooth" });
-              }}
+              
+             page={page}
+  totalPages={totalPages}
+  setPage={setPage}
             />
 
           </div>

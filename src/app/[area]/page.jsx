@@ -1,50 +1,145 @@
 import FilterProperties from "./FilterProperties";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
 import Breadcrumb from "@/components/Breadcrumb";
-export async function generateMetadata({ params }) {
-  const resolvedParams = await params;
-  const rawArea = resolvedParams?.area;
+import HisarMarketOverview from "./HisarMarketOverview";
 
-  const area = rawArea?.replace("house-for-rent-in-", "");
+// ✅ GET SEO DATA
 
-  const formattedArea = area
-    ?.replace(/-/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+async function getDealerMeta(
+  slug
+) {
+  try {
 
-  const locationName = formattedArea || "Faridabad";
+    const domain =
+      "www.renthouseinfaridabad.com";
+
+    const res =
+      await fetch(
+        `https://faridabad-backend.onrender.com/api/add/get-dealer-meta/${slug}?domain=${domain}`,
+        {
+          cache: "no-store",
+        }
+      );
+
+    if (!res.ok)
+      return null;
+
+    const data =
+      await res.json();
+
+    return (
+      data?.data || null
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+    return null;
+
+  }
+}
+
+export async function generateMetadata({
+  params,
+}) {
+
+  const resolvedParams =
+    await params;
+
+  const rawArea =
+    resolvedParams?.area;
+
+  // ✅ CLEAN SLUG
+
+  const area =
+    rawArea?.replace(
+      "house-for-rent-in-",
+      ""
+    );
+
+  // ✅ FORMATTED LOCATION
+
+  const formattedArea =
+    area
+      ?.replace(/-/g, " ")
+      .replace(
+        /\b\w/g,
+        (c) =>
+          c.toUpperCase()
+      );
+
+  // ✅ API CALL
+
+  const seoData =
+    await getDealerMeta(
+      area
+    );
+
+  // ✅ FALLBACK META
+
+  const fallbackTitle =
+    ` ${formattedArea}`;
+
+  const fallbackDescription =
+    `${formattedArea}`;
 
   return {
-    title: `Houses for Rent in ${locationName} | Rent Independent House & Villas`,
+    title:
+      seoData?.metaTitle ||
+      fallbackTitle,
 
-    description: `Find houses for rent in ${locationName}. Explore independent houses, villas, and rental homes including 1BHK, 2BHK, and 3BHK options with modern amenities and great connectivity in ${locationName}.`,
-
-    keywords: [
-      `houses for rent in ${locationName}`,
-      `rent house ${locationName}`,
-      `independent house rent ${locationName}`,
-      `villa for rent ${locationName}`,
-      `1BHK house rent ${locationName}`,
-      `2BHK house rent ${locationName}`,
-      `3BHK house rent ${locationName}`,
-      `${locationName} rental homes`,
-    ],
+    description:
+      seoData?.metaDescription ||
+      fallbackDescription,
 
     alternates: {
-      canonical: `https://www.renthouseinfaridabad.com/${rawArea}`,
+      canonical:
+        `https://www.renthouseinfaridabad.com/${rawArea}`,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
-export default async function Page({ params }) {
-  const resolvedParams = await params;
-   const rawArea = resolvedParams?.area;
 
-// ✅ CLEAN SLUG (IMPORTANT)
-const area = rawArea?.replace("house-for-rent-in-", "");
+export default async function Page({
+  params,
+}) {
 
-// slug format → sector-9 → Sector 9
-const formattedArea = area
-  ?.replace(/-/g, " ")
-  .replace(/\b\w/g, (c) => c.toUpperCase());
+  const resolvedParams =
+    await params;
+
+  const rawArea =
+    resolvedParams?.area;
+
+  // ✅ CLEAN SLUG
+
+  const area =
+    rawArea?.replace(
+      "house-for-rent-in-",
+      ""
+    );
+
+  // ✅ FORMATTED AREA
+
+  const formattedArea =
+    area
+      ?.replace(/-/g, " ")
+      .replace(
+        /\b\w/g,
+        (c) =>
+          c.toUpperCase()
+      );
+
+  // ✅ API CALL
+
+  const seoData =
+    await getDealerMeta(
+      area
+    );
 
   return (
     <div className="bg-white min-h-screen">
@@ -87,7 +182,11 @@ const formattedArea = area
           </div>
 
         </div>
-
+      <HisarMarketOverview
+  pageContent={
+    seoData?.pageContent
+  }
+/>
       </div>
     </div>
   );

@@ -25,19 +25,17 @@ export default function PropertyCard({ property }) {
     >
       {/* IMAGE */}
       <div className="relative md:w-2/5 aspect-[4/3] md:aspect-auto">
-        {property?.media?.url ? (
+        
           <Image
-            src={property.media.url}
+             src={property?.media?.url ? 
+                      property?.media?.url :
+                       "https://res.cloudinary.com/do84xjpmx/image/upload/v1778824618/faridabadProperties/ui9tj2tpn8vgzgyqsotg.webp"}
             unoptimized
             alt={property.title}
             fill
             className="object-cover"
           />
-        ) : (
-          <div className="bg-[#E6FBF8] w-full h-full flex items-center justify-center text-[#6DE1D2] text-sm">
-            No Image
-          </div>
-        )}
+        
       </div>
 
       {/* CONTENT */}

@@ -11,21 +11,33 @@ const createSlug = (location) => {
     .replace(/-+/g, "-");
 };
 
+const currentDate =
+    new Date().toISOString();
+
 export async function generateSitemap() {
   const baseUrl = "https://www.renthouseinfaridabad.com";
 const apiDomain =
   "www.renthouseinfaridabad.com";
   // 🔹 Static URLs
   const staticUrls = `
-    <url><loc>${baseUrl}/</loc></url>
-    <url><loc>${baseUrl}/about</loc></url>
-    <url><loc>${baseUrl}/contact</loc></url>
-    <url><loc>${baseUrl}/blog</loc></url>
-    <url><loc>${baseUrl}/how-it-works</loc></url>
-    <url><loc>${baseUrl}/listing/1-bhk-house-for-rent-faridabad</loc></url>
-    <url><loc>${baseUrl}/listing/2-bhk-house-for-rent-faridabad</loc></url>
-    <url><loc>${baseUrl}/listing/3-bhk-house-for-rent-faridabad</loc></url>
-    <url><loc>${baseUrl}/listing/4-bhk-house-for-rent-faridabad</loc></url>
+    <url><loc>${baseUrl}/</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/about</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/contact</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/blog</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/how-it-works</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/listing/1-bhk-house-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/listing/2-bhk-house-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/listing/3-bhk-house-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod></url>
+    <url><loc>${baseUrl}/listing/4-bhk-house-for-rent-faridabad</loc>
+      <lastmod>${currentDate}</lastmod></url>
 
   `;
 let blogUrls = [];
@@ -54,6 +66,7 @@ try {
     return `
       <url>
         <loc>${baseUrl}/blog/${slug}</loc>
+      <lastmod>${currentDate}</lastmod>
       </url>
     `;
   });
@@ -75,6 +88,7 @@ try {
   //     (slug) => `
   //       <url>
   //         <loc>${baseUrl}/properties/${slug}</loc>
+      //<lastmod>${currentDate}</lastmod>
   //       </url>
   //     `
   //   );
@@ -89,6 +103,7 @@ try {
     return `
       <url>
         <loc>${baseUrl}/house-for-rent-in-${slug}-faridabad</loc>
+      <lastmod>${currentDate}</lastmod>
       </url>
     `;
   });
@@ -97,7 +112,7 @@ try {
   const allUrls = [
     staticUrls,
     ...locationUrls,
-    ...propertiesUrls,
+    ...blogUrls
   ].join("\n");
 
   // 🔹 XML Output

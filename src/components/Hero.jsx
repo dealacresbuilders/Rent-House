@@ -66,7 +66,7 @@ const HeroSection = () => {
 
   return (
     <section className="bg-gradient-to-b from-white to-[#E6FBF8] px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto py-10 grid md:grid-cols-12 gap-12 items-center">
+      <div className="max-w-7xl mx-auto py-6 grid md:grid-cols-12 gap-12 items-center">
 
         {/* LEFT CONTENT */}
         <div className="md:col-span-7 lg:col-span-8">
@@ -75,20 +75,9 @@ const HeroSection = () => {
             <span className="text-[#6DE1D2]">Faridabad</span>
           </h1>
 
-          <div className="text-lg max-w-3xl space-y-5 text-gray-700 leading-relaxed">
+          <div className="text-lg max-w-4xl space-y-5 text-gray-700 leading-relaxed">
             <p>
-              Looking for a comfortable and affordable house for rent in 
-              Faridabad? Whether you need a 1BHK, 2BHK, 3BHK, or a luxury 
-              independent house, Faridabad offers excellent residential 
-              options with great connectivity to Delhi and NCR.
-            </p>
-
-            <p>
-              With rapidly developing sectors, metro access, schools, 
-              hospitals, and shopping complexes nearby, renting a house in 
-              Faridabad ensures convenience, safety, and a peaceful lifestyle. 
-              Explore verified rental homes that match your budget and 
-              lifestyle needs.
+             Searching for a comfortable, well-located house for rent in Faridabad that fits your lifestyle and your monthly budget? Your ideal rental home is just a few clicks away. Faridabad's rental property market is one of the most vibrant and tenant-friendly in the NCR region, offering an excellent mix of furnished, semi-furnished, and unfurnished homes across a wide range of configurations — from cosy 1 BHK apartments and independent 2 BHK builder floors to spacious 3 BHK independent houses and family-sized duplex homes. Renting in Faridabad makes complete sense: the city offers lower rental costs compared to Gurugram or Noida, while providing the same quality of urban life with excellent metro connectivity, top schools, reputed hospitals, and well-stocked markets. Whether you are a corporate professional relocating to the NCR, a family seeking a peaceful neighbourhood, or a student needing proximity to institutions, our verified rental listings cover all key areas including Neharpar, Sainik Colony, NIT, Sector 85, Sector 86, Ballabhgarh, and many more. Every listing is verified for authenticity, fairly priced, and backed by transparent rental agreements with zero surprise deductions. Find your next rental home in Faridabad with ease, speed, and complete confidence — because great living should never be complicated.
             </p>
             <Link href="/how-it-works">
   <button className="relative overflow-hidden bg-[#6DE1D2] text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 hover:bg-[#6DE1D2] hover:shadow-xl hover:scale-105 mt-4 cursor-pointer">

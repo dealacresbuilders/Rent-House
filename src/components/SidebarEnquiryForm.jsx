@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+import toast from "react-hot-toast";
 const SidebarEnquiryForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,8 +10,7 @@ const SidebarEnquiryForm = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,44 +24,70 @@ const SidebarEnquiryForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+  e.preventDefault();
 
-    if (formData.phone.length !== 10) {
-      setError("Phone number must be exactly 10 digits.");
-      return;
-    }
+  if (formData.phone.length !== 10) {
+    toast.error("Phone number must be exactly 10 digits.");
+    return;
+  }
 
-    try {
-      setLoading(true);
+  const website =
+    typeof window !== "undefined"
+      ? window.location.hostname.replace("www.", "")
+      : "";
 
-      const res = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          source: "Sidebar Enquiry Form",
-        }),
+  try {
+    setLoading(true);
+
+    const payload = {
+      ...formData,
+      website,
+      source:
+        "Residential Sidebar Enquiry — Buy House in Faridabad",
+    };
+
+    console.log("PAYLOAD:", payload);
+
+    const res = await fetch("/api/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    console.log("STATUS:", res.status);
+
+    const data = await res.json();
+
+    console.log("RESPONSE:", data);
+
+    if (data.success) {
+      toast.success(
+        "Your enquiry has been submitted successfully!"
+      );
+
+      setFormData({
+        name: "",
+        phone: "",
+        message: "",
       });
-
-      if (!res.ok) throw new Error("Failed request");
-
-      const data = await res.json();
-
-      if (data.success) {
-        setSuccess("Request submitted successfully!");
-        setFormData({ name: "", phone: "", message: "" });
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
-
-    } catch (err) {
-      setError("Server error. Please try again later.");
-    } finally {
-      setLoading(false);
+    } else {
+      toast.error(
+        data.message ||
+          "Something went wrong. Please try again."
+      );
     }
-  };
+  } catch (err) {
+    console.log("ERROR:", err);
+
+    toast.error(
+      "Server error. Please try again later."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="sticky top-28 bg-white rounded-2xl shadow-xl p-8 
@@ -120,19 +145,6 @@ const SidebarEnquiryForm = () => {
           outline-none resize-none transition"
         />
 
-        {/* ERROR MESSAGE */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-2 rounded-lg">
-            {error}
-          </div>
-        )}
-
-        {/* SUCCESS MESSAGE */}
-        {success && (
-          <div className="bg-green-50 border border-green-200 text-green-600 text-sm px-4 py-2 rounded-lg">
-            {success}
-          </div>
-        )}
 
         {/* BUTTON */}
         <button

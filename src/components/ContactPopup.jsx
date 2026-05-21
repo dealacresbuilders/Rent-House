@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-export default function ContactPopup({ isOpen, onClose, propertyTitle }) {
+export default function ContactPopup({
+  isOpen,
+  onClose,
+  propertyTitle,
+}) {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -16,49 +21,92 @@ export default function ContactPopup({ isOpen, onClose, propertyTitle }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+    // PHONE VALIDATION
     if (name === "phone") {
+      // only numbers
       if (!/^\d*$/.test(value)) return;
+
+      // max 10 digits
       if (value.length > 10) return;
     }
 
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // PHONE CHECK
     if (formData.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      toast.error(
+        "Phone number must be exactly 10 digits"
+      );
       return;
     }
+
+    // WEBSITE
+    const website =
+      typeof window !== "undefined"
+        ? window.location.hostname.replace(
+            "www.",
+            ""
+          )
+        : "";
 
     try {
       setLoading(true);
 
+      const payload = {
+        ...formData,
+        propertyTitle,
+        website,
+        source: "Popup Enquiry",
+      };
+
+      console.log("PAYLOAD:", payload);
+
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":
+            "application/json",
         },
-        body: JSON.stringify({
-          ...formData,
-          propertyTitle,
-          date: new Date().toLocaleString(),
-        }),
+        body: JSON.stringify(payload),
       });
+
+      console.log("STATUS:", res.status);
 
       const data = await res.json();
 
+      console.log("RESPONSE:", data);
+
       if (data.success) {
-        alert("Enquiry Submitted Successfully!");
-        setFormData({ name: "", phone: "", message: "" });
+        toast.success(
+          "Enquiry Submitted Successfully!"
+        );
+
+        setFormData({
+          name: "",
+          phone: "",
+          message: "",
+        });
+
         onClose();
       } else {
-        alert("Something went wrong!");
+        toast.error(
+          data.message ||
+            "Something went wrong"
+        );
       }
+    } catch (err) {
+      console.log("ERROR:", err);
 
-    } catch (error) {
-      alert("Server Error!");
+      toast.error(
+        "Server error. Please try again later."
+      );
     } finally {
       setLoading(false);
     }

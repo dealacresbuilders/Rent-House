@@ -5,6 +5,7 @@ import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
+import PropertyViewButton from "@/components/PropertyViewButton";
 
 export default function FilterProperties({ area }) {
 
@@ -219,14 +220,15 @@ export default function FilterProperties({ area }) {
     >
       Contact Now
     </button>
-
+     <PropertyViewButton slug={property.slug}
+  city={property.city}/>
     {/* VIEW DETAILS */}
-    <Link
+    {/* <Link
       href={`/properties/${property.slug}`}
       className="text-[#6DE1D2] text-sm font-medium hover:underline"
     >
       View  Details →
-    </Link>
+    </Link> */}
 
   </div>
 

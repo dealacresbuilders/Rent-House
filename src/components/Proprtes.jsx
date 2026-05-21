@@ -8,6 +8,7 @@ import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
+import PropertyViewButton from "./PropertyViewButton";
 export default function Properties() {
   const { properties, loading, error, page2, setPage2,
     totalItems, itemsPerPage, } = useProperty();
@@ -212,27 +213,17 @@ export default function Properties() {
                       >
                         Contact Now
                       </button>
-
-                      <Link
+                     <PropertyViewButton slug={property.slug} city={property.city}/>
+                      {/* <Link
                         href={`/properties/${property.slug}`}
-  onClick={() => {
-    localStorage.setItem("lastLocation", property.city);
-
-    // 🔥 ONLY set if coming from listing page
-    if (window.location.pathname.includes("flat") || window.location.pathname.includes("listing")) {
-      localStorage.setItem("lastListing", window.location.pathname);
-    } else {
-      // 🔥 clear if coming from home or anywhere else
-      localStorage.removeItem("lastListing");
-    }
-  }}
+ 
                         className="border border-[#6DE1D2] text-[#6DE1D2]
       px-4 sm:px-6 py-2 rounded-full
       hover:bg-[#E6FBF8]
       transition w-full md:w-auto text-center font-semibold text-sm"
                       >
                         View Details
-                      </Link>
+                      </Link> */}
 
                     </div>
 

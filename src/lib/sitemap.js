@@ -12,8 +12,9 @@ const createSlug = (location) => {
 };
 
 export async function generateSitemap() {
-  const baseUrl = "https://www.houseforrentinfaridabad.com";
-
+  const baseUrl = "https://www.renthouseinfaridabad.com";
+const apiDomain =
+  "www.renthouseinfaridabad.com";
   // 🔹 Static URLs
   const staticUrls = `
     <url><loc>${baseUrl}/</loc></url>
@@ -27,24 +28,59 @@ export async function generateSitemap() {
     <url><loc>${baseUrl}/listing/4-bhk-house-for-rent-faridabad</loc></url>
 
   `;
+let blogUrls = [];
 
+try {
+  const res = await axios.get(
+    `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${apiDomain}`
+  );
+
+  console.log("FULL RESPONSE:", res.data);
+
+  // 🔥 RESPONSE HANDLE
+  const slugs =
+    res.data?.data ||
+    res.data?.blogs ||
+    res.data ||
+    [];
+
+  blogUrls = slugs.map((item) => {
+    // Agar object hai
+    const slug =
+      typeof item === "string"
+        ? item
+        : item.slug;
+
+    return `
+      <url>
+        <loc>${baseUrl}/blog/${slug}</loc>
+      </url>
+    `;
+  });
+
+} catch (err) {
+  console.error(
+    "Blog Sitemap Fetch Error:",
+    err.message
+  );
+}
  //properties URLs
-  let propertiesUrls = [];
-  try {
-    const res = await axios.get(
-      `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesSlugs/www.houseforrentinfaridabad.com`
-    );
+  // let propertiesUrls = [];
+  // try {
+  //   const res = await axios.get(
+  //     `https://faridabad-backend.onrender.com/api/listed-properties/getPropertiesSlugs/www.houseforrentinfaridabad.com`
+  //   );
 
-    propertiesUrls = res.data.map(
-      (slug) => `
-        <url>
-          <loc>${baseUrl}/properties/${slug}</loc>
-        </url>
-      `
-    );
-  } catch (err) {
-    console.error("Blog fetch error:", err);
-  }
+  //   propertiesUrls = res.data.map(
+  //     (slug) => `
+  //       <url>
+  //         <loc>${baseUrl}/properties/${slug}</loc>
+  //       </url>
+  //     `
+  //   );
+  // } catch (err) {
+  //   console.error("Blog fetch error:", err);
+  // }
 
   // 🔥 LOCATION URLs (MAIN PART)
   const locationUrls = locations.map((loc) => {

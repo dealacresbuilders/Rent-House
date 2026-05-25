@@ -20,8 +20,26 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
 
-      - name: Sync to project repos
+      # Main Rent House Repo
+      - name: Sync to Main Rent House Repo
+        continue-on-error: true
         run: |
           git remote remove mirror || true
           git remote add mirror https://x-access-token:${{ secrets.FARIDABAD_ACESS_TOKEN }}@github.com/dealacresfaridabad/Rent-House.git
           git push mirror HEAD:main --force
+
+      # Mukesh Frontend Repo
+      - name: Sync to Mukesh Frontend Repo
+        continue-on-error: true
+        run: |
+          git remote remove mukeshprojects || true
+          git remote add mukeshprojects https://x-access-token:${{ secrets.MUKESH_PROJECTS_ACCESS_TOKEN }}@github.com/mukeshkumar44/rent-house-in-faridabad-frontend.git
+          git push mukeshprojects HEAD:main --force
+
+      # Faridabad Dev Repo
+      - name: Sync to Faridabad Dev Repo
+        continue-on-error: true
+        run: |
+          git remote remove faridabaddev || true
+          git remote add faridabaddev https://x-access-token:${{ secrets.FARIDABAD_DEV_ACCESS_TOKEN }}@github.com/dealacresfaridabadprojects-dev/rent-house.git
+          git push faridabaddev HEAD:main --force

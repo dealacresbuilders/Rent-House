@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import toast from "react-hot-toast";
+import AlertPopup from "@/components/AlertPopup";
 
 export default function ContactPopup({
   isOpen,
@@ -16,17 +16,19 @@ export default function ContactPopup({
 
   const [loading, setLoading] = useState(false);
 
+  const [popup, setPopup] = useState({
+    open: false,
+    type: "",
+    message: "",
+  });
+
   if (!isOpen) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // PHONE VALIDATION
     if (name === "phone") {
-      // only numbers
       if (!/^\d*$/.test(value)) return;
-
-      // max 10 digits
       if (value.length > 10) return;
     }
 
@@ -39,54 +41,44 @@ export default function ContactPopup({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // PHONE CHECK
     if (formData.phone.length !== 10) {
-      toast.error(
-        "Phone number must be exactly 10 digits"
-      );
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Phone number must be 10 digits",
+      });
       return;
     }
 
-    // WEBSITE
-    const website =
-      typeof window !== "undefined"
-        ? window.location.hostname.replace(
-            "www.",
-            ""
-          )
-        : "";
+    // const website =
+    //   typeof window !== "undefined"
+    //     ? window.location.hostname.replace("www.", "")
+    //     : "";
 
     try {
       setLoading(true);
 
-      const payload = {
-        ...formData,
-        propertyTitle,
-        website,
-        source: "Popup Enquiry",
-      };
-
-      console.log("PAYLOAD:", payload);
-
       const res = await fetch("/api/submit", {
         method: "POST",
         headers: {
-          "Content-Type":
-            "application/json",
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          ...formData,
+          propertyTitle,
+          website:"renthouseinfaridabad.com",
+          source: "Rental Popup Form",
+        }),
       });
-
-      console.log("STATUS:", res.status);
 
       const data = await res.json();
 
-      console.log("RESPONSE:", data);
-
       if (data.success) {
-        toast.success(
-          "Enquiry Submitted Successfully!"
-        );
+        setPopup({
+          open: true,
+          type: "success",
+          message: "Enquiry submitted successfully!",
+        });
 
         setFormData({
           name: "",
@@ -94,26 +86,40 @@ export default function ContactPopup({
           message: "",
         });
 
-        onClose();
+        setTimeout(() => {
+          setPopup({ open: false, type: "", message: "" });
+          onClose?.();
+        }, 1200);
       } else {
-        toast.error(
-          data.message ||
-            "Something went wrong"
-        );
+        setPopup({
+          open: true,
+          type: "error",
+          message: "Something went wrong. Try again.",
+        });
       }
     } catch (err) {
-      console.log("ERROR:", err);
-
-      toast.error(
-        "Server error. Please try again later."
-      );
+      setPopup({
+        open: true,
+        type: "error",
+        message: "Server error. Please try later.",
+      });
     } finally {
       setLoading(false);
     }
   };
 
+
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 px-4">
+     {/* ✅ ALERT POPUP */}
+      <AlertPopup
+        open={popup.open}
+        type={popup.type}
+        message={popup.message}
+        onClose={() =>
+          setPopup({ open: false, type: "", message: "" })
+        }
+      />
       <div className="bg-white w-full max-w-md rounded-2xl p-7 shadow-2xl relative border border-[#6DE1D2]">
 
         <button

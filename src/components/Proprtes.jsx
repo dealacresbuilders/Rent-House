@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef ,useMemo} from "react";
 import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import SidebarEnquiryForm from "./SidebarEnquiryForm";
 import Pagination from "@/components/Pagination";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import PropertyViewButton from "./PropertyViewButton";
+import FeaturedLocations from "./FeaturedLocations";
 export default function Properties() {
   const { properties, loading, error, page2, setPage2,
     totalItems, itemsPerPage, } = useProperty();
@@ -25,6 +26,16 @@ export default function Properties() {
       unit.charAt(0).toUpperCase() + unit.slice(1).toLowerCase();
     return `${formattedNumber} ${formattedUnit}`;
   };
+
+  const localities = useMemo(() => {
+      return [
+        ...new Set(
+          properties
+            ?.map((item) => item?.locality)
+            .filter(Boolean)
+        ),
+      ];
+    }, [properties]);
 
   if (loading) {
     return (
@@ -90,7 +101,20 @@ export default function Properties() {
         {/* LEFT SIDE */}
         <div className="lg:col-span-2 space-y-8">
 
-          {properties.map((property) => (
+          {properties.map((property, index) => {
+            const locationBatch =
+              localities.slice(
+                Math.floor(index / 30) * 10,
+                Math.floor(index / 30) * 10 + 10
+              );
+
+            return (
+              <div
+                key={property._id}
+                className="space-y-10"
+              >
+
+                {/* PROPERTY CARD */}
             <div
               key={property._id}
               className="bg-white rounded-2xl border border-[#6DE1D2]/30
@@ -232,7 +256,18 @@ export default function Properties() {
                 </div>
               </div>
             </div>
-          ))}
+           {/* FEATURED */}
+
+                {(index + 1) % 30 === 0 &&
+                  locationBatch.length > 0 && (
+                    <FeaturedLocations
+                      locations={locationBatch}
+                    />
+                )}
+
+              </div>
+            );
+          })}
 
           <div className="mt-16">
             <Pagination

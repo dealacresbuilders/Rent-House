@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 import PropertyViewButton from "@/components/PropertyViewButton";
+import FeaturedLocations from "@/components/FeaturedLocations";
+import { Fragment } from "react";
 
 export default function FilterProperties({ area }) {
 
@@ -62,6 +64,17 @@ export default function FilterProperties({ area }) {
     ].slice(0, 150);
 
   }, [safeData, safeProperties]);
+
+
+  const localities = useMemo(() => {
+  return [
+    ...new Set(
+      finalData
+        ?.map((item) => item?.locality)
+        .filter(Boolean)
+    ),
+  ];
+}, [finalData]);
 
   /* ================= LOADING ================= */
   if (loading2) {
@@ -123,9 +136,21 @@ export default function FilterProperties({ area }) {
         {/* GRID */}
         <div className="grid grid-cols-1  gap-10">
 
-          {finalData.map((property) => (
+          {finalData.map((property, index) => {
+
+const featuredPosition = Math.floor(index / 30);
+
+const locationBatch =
+(index + 1) % 30 === 0
+  ? localities.slice(
+      featuredPosition * 10,
+      featuredPosition * 10 + 10
+    )
+  : [];
+
+return (
+<Fragment key={property._id}>
             <div
-              key={property._id}
               className="bg-white rounded-xl border border-[#6DE1D2]/40
               shadow-sm hover:shadow-lg transition duration-300
               overflow-hidden flex flex-col md:flex-row"
@@ -236,7 +261,17 @@ export default function FilterProperties({ area }) {
 
               </div>
             </div>
-          ))}
+
+{locationBatch.length > 0 && (
+  <FeaturedLocations
+    locations={locationBatch}
+  />
+)}
+
+</Fragment>
+
+);
+})}
 
         </div>
 

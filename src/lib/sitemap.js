@@ -47,7 +47,7 @@ try {
     `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${apiDomain}`
   );
 
-  console.log("FULL RESPONSE:", res.data);
+  
 
   // 🔥 RESPONSE HANDLE
   const slugs =

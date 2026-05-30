@@ -100,7 +100,7 @@ export default function PropertyViewButton({ slug }) {
   px-4 sm:px-6 py-2 rounded-full
   hover:bg-[#E6FBF8]
   transition w-full md:w-auto
-  text-center font-semibold text-sm pointer-events-none"
+  text-center font-semibold text-sm "
 >
   View Details
 </Link>

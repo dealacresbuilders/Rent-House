@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import Breadcrumb from "@/components/Breadcrumb";
+
 
 export default function RentHero() {
   return (
     <section className="w-full bg-[#E6FBF8] py-6 px-6 md:px-16">
+    <div className="mb-6 flex justify-start max-w-7xl mx-auto">
+   <Breadcrumb />
+  </div>
+
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
 
         {/* LEFT SIDE */}

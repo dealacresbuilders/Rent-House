@@ -1,11 +1,15 @@
 "use client";
+import Breadcrumb from "@/components/Breadcrumb";
 
 import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <section className="bg-gradient-to-b from-white to-[#E6FBF8] px-4 py-20">
+    <section className="bg-gradient-to-b from-white to-[#E6FBF8] px-4 py-8">
       <div className="max-w-6xl mx-auto">
+      <div className="mb-6 flex justify-center">
+   <Breadcrumb />
+  </div>
 
      
         <div className="text-center mb-20">

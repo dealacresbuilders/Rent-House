@@ -44,7 +44,7 @@ let blogUrls = [];
 
 try {
   const res = await axios.get(
-    `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${apiDomain}`
+    `https://faridabad-backend.onrender.com/blogs/getSlugsByDomain/${apiDomain}`
   );
 
   // console.log("FULL RESPONSE:", res.data);

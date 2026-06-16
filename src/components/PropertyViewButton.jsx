@@ -27,7 +27,6 @@ export default function PropertyViewButton({ slug }) {
   // Day 3 = 150
 
   const dailyLimit = 100 + diffDays * 100;
-/>
 
   // 🔥 TODAY KEY
   const today = todayDate.toISOString().split("T")[0];

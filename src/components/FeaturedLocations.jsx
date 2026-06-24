@@ -31,15 +31,15 @@ export default function FeaturedLocations({
         {/* Locations */}
         <div className="flex flex-wrap gap-3">
           {locations.map((location, index) => {
-            const slug = location
+            {/* const slug = location
               .toLowerCase()
               .replace(/,/g, "")
-              .replace(/\s+/g, "-");
+              .replace(/\s+/g, "-"); */}
 
             return (
               <Link
                 key={index}
-                href={`https://www.dealacres.com/properties/house-for-rent-in-${slug}`}
+                href={`https://www.dealacres.com/properties/house-for-rent-in-${location?.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="
@@ -60,7 +60,7 @@ export default function FeaturedLocations({
                   className="transition-transform duration-300 group-hover:scale-110"
                 />
 
-                {location}
+                {location?.location}
               </Link>
             );
           })}

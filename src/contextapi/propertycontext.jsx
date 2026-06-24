@@ -155,6 +155,36 @@ useEffect(() => {
     fetchPropertiesByLocality();
   }, [locality]);
 
+
+  // *****************************************************************
+  // ✅ Areas API Integration
+const [areas, setAreas] = useState([]);
+const [loadingAreas, setLoadingAreas] = useState(true);
+const [errorAreas, setErrorAreas] = useState(null);
+
+const fetchAreas = async () => {
+  try {
+    setLoadingAreas(true);
+    setErrorAreas(null);
+    const res = await axios.get(
+      "https://faridabad-backend.onrender.com/api/areas/getAllAreas"
+    );
+    if (res.data && res.data.success) {
+      setAreas(res.data.data || []);
+    } else {
+      setErrorAreas("Failed to fetch areas");
+    }
+  } catch (err) {
+    console.error("Failed to fetch areas:", err);
+    setErrorAreas(err.message || "Something went wrong while fetching areas");
+  } finally {
+    setLoadingAreas(false);
+  }
+};
+useEffect(() => {
+  fetchAreas();
+}, []);
+
   /* ================= PROVIDER ================= */
 
   return (
@@ -168,7 +198,7 @@ useEffect(() => {
         refetch: getPropertiesByDomain,
 page2,setPage2,totalItems,itemsPerPage:limit,
         // BHK filter
-        fetchPropertiesByType,
+        fetchPropertiesByType,areas,
         loading3,
         error3,
         page,

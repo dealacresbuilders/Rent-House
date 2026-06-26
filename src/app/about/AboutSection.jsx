@@ -2,6 +2,7 @@
 import Breadcrumb from "@/components/Breadcrumb";
 
 import Link from "next/link";
+import DisclaimerSection from "./DisclaimerSection";
 
 export default function AboutPage() {
   return (
@@ -143,6 +144,7 @@ export default function AboutPage() {
         </div>
 
       </div>
+      <DisclaimerSection/>
     </section>
   );
 }

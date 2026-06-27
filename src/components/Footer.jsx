@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { locations } from "../data/locations";
+import { locations } from "../data/newLocations";
 
 const createSlug = (location) => {
   return location

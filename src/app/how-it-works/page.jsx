@@ -15,7 +15,7 @@ export const metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.renthouseinfaridabad.com/",
+    canonical: "https://www.renthouseinfaridabad.com/how-it-works",
   },
 };
 

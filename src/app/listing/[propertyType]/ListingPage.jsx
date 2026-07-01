@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import { useProperty } from "@/contextapi/propertycontext";
 import Image from "next/image";
+import { Fragment } from "react";
 import Link from "next/link";
 import ContactPopup from "@/components/ContactPopup";
 import SidebarEnquiryForm from "@/components/SidebarEnquiryForm";
@@ -11,20 +12,23 @@ import Pagination from "@/components/PaginationTwo";
 import BHKFilterButtons from "@/components/BHKFilterButtons";
 import Breadcrumb from "@/components/Breadcrumb";
 import PropertyViewButton from "@/components/PropertyViewButton";
+import PropertyBottomLinks from "@/components/PropertyBottomLinks";
+import FeaturedLocations from "@/components/FeaturedLocations";
 export default function PropertyTypePage() {
 
   const { propertyType } = useParams();
 
   const {
-   data2,
+    data2,
     loading3,
     error3,
     fetchPropertiesByType,
     page,
     setPage,
-    totalPages,type,setType
+    totalPages, type, setType,
+    areas
   } = useProperty();
-  console.log("PROPERTIES BY TYPE:", page,totalPages);
+  console.log("PROPERTIES BY TYPE:", page, totalPages);
 
   const [open, setOpen] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState("");
@@ -33,28 +37,28 @@ export default function PropertyTypePage() {
 
   /* ================= FETCH BY TYPE ================= */
 
- const bhk = propertyType?.split("-")[0];
+  const bhk = propertyType?.split("-")[0];
   useEffect(() => {
 
-  if (bhk) {
+    if (bhk) {
 
-    setPage(1);
+      setPage(1);
 
-    setType(`${bhk} BHK`);
+      setType(`${bhk} BHK`);
 
-  }
+    }
 
-}, [bhk]);
+  }, [bhk]);
 
   /* ================= FORMAT AREA ================= */
   useEffect(() => {
-  if (!loading3 &&data2.length > 0) {
-    propertySectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  }
-}, [data2]);
+    if (!loading3 && data2.length > 0) {
+      propertySectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [data2]);
 
   const formatArea = (area, unit) => {
     if (!area) return "N/A";
@@ -70,8 +74,8 @@ export default function PropertyTypePage() {
   };
 
   useEffect(() => {
-  localStorage.setItem("lastListing", window.location.pathname);
-}, []);
+    localStorage.setItem("lastListing", window.location.pathname);
+  }, []);
 
   if (loading3) {
     return (
@@ -96,7 +100,7 @@ export default function PropertyTypePage() {
     );
   }
 
-  if (!data2 ||data2.length === 0) {
+  if (!data2 || data2.length === 0) {
     return (
       <div className="text-center py-20">
         <h2 className="text-2xl font-semibold text-gray-800">
@@ -116,9 +120,9 @@ export default function PropertyTypePage() {
       {/* ===== HEADER ===== */}
 
       <div className="max-w-7xl mx-auto mb-12">
-<div className="mb-6">
-   <Breadcrumb />
-  </div>
+        <div className="mb-6">
+          <Breadcrumb />
+        </div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
           {bhk} BHK House For Rent in Faridabad
         </h1>
@@ -144,20 +148,25 @@ export default function PropertyTypePage() {
 
         <div className="lg:col-span-2 space-y-8">
 
-          {data2.map((property) => (
+          {data2.map((property , index) => {
+              const areaBatch = areas?.slice(
+              Math.floor(index / 10) * 10,
+              Math.floor(index / 10) * 10 + 10
+            ) || [];
+            return (
+              <Fragment key={property._id}>
+              <div
+             
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[260px]"
+              >
 
-            <div
-              key={property._id}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden md:h-[250px]"
-            >
+              <div className="flex flex-col md:flex-row full h-full">
 
-              <div className="flex flex-col md:flex-row full">
-
-                <div className="relative md:w-[45%] h-[250px]">
+                <div className="relative md:w-[45%] h-[250px] md:h-full">
                   <Image
-                     src={property?.media?.url ? 
+                    src={property?.media?.url ?
                       property?.media?.url :
-                       "https://res.cloudinary.com/do84xjpmx/image/upload/v1778824618/faridabadProperties/ui9tj2tpn8vgzgyqsotg.webp"}
+                      "https://res.cloudinary.com/do84xjpmx/image/upload/v1778824618/faridabadProperties/ui9tj2tpn8vgzgyqsotg.webp"}
                     unoptimized
                     alt={property.title}
                     width={600}
@@ -167,10 +176,10 @@ export default function PropertyTypePage() {
                 </div>
 
                 <div className="p-6 flex flex-col w-full min-w-0">
-  
-  <h2 className="text-lg font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
-    {property.title}
-  </h2>
+
+                  <h2 className="text-lg font-bold text-gray-900 overflow-hidden md:whitespace-nowrap md:text-ellipsis">
+                    {property.title}
+                  </h2>
 
                   <p className="text-sm text-gray-500 mt-1 flex items-center gap-1">
                     <svg
@@ -232,10 +241,6 @@ export default function PropertyTypePage() {
 
                   </div>
 
-                  {/* <p className="text-sm text-gray-500 mt-4 line-clamp-2 leading-relaxed">
-                    {property.description2 ||
-                      "High-value residential asset offering strong long-term growth."}
-                  </p> */}
 
                   <div className="flex-1" />
 
@@ -256,8 +261,8 @@ export default function PropertyTypePage() {
                       >
                         Contact Now
                       </button>
-                       <PropertyViewButton slug={property.slug}
-  city={property.city}/>
+                      <PropertyViewButton slug={property.slug}
+                        city={property.city} />
                       {/* <Link
                         href={`/properties/${property.slug}`}
                         className="border border-[#6DE1D2] text-[#6DE1D2] px-6 py-2 rounded-full hover:bg-[#e6fffb] transition w-full md:w-auto text-center"
@@ -268,24 +273,37 @@ export default function PropertyTypePage() {
                     </div>
 
                   </div>
-
+                  <PropertyBottomLinks
+                    propertyType={property.propertyType}
+                    city="faridabad"
+                    color="#6DE1D2"
+                  />
                 </div>
 
               </div>
 
+                 
+                 
             </div>
-
-          ))}
+              {(index + 1) % 10 === 0 &&
+                 areaBatch.length > 0 && (
+                   <FeaturedLocations
+                     locations={areaBatch}
+                   />
+                  )}
+            </Fragment>
+            )
+          })}
 
           {/* PAGINATION */}
 
           <div className="mt-16">
 
             <Pagination
-              
-             page={page}
-  totalPages={totalPages}
-  setPage={setPage}
+
+              page={page}
+              totalPages={totalPages}
+              setPage={setPage}
             />
 
           </div>

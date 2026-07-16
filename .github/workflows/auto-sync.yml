@@ -25,7 +25,7 @@ jobs:
         continue-on-error: true
         run: |
           git remote remove mirror || true
-          git remote add mirror https://x-access-token:${{ secrets.FARIDABAD_ACESS_TOKEN }}@github.com/dealacresfaridabad/Rent-House.git
+          git remote add mirror https://x-access-token:${{ secrets.FARIDABAD_ACESS_TOKEN }}@github.com/dealacresbuilders/Rent-House.git
           git push mirror HEAD:main --force
 
       # Mukesh Frontend Repo
